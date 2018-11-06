@@ -10,14 +10,29 @@
         <input v-model="inputValue">
         <button v-on:click="handleClick">提交</button>
         <ul>
-            <li v-for="item in list">{{ item }}</li>
+            <!-- 组件命名首字母大写转化为小写-分隔 -->
+            <todo-item :content="item" v-for="item in list"></todo-item>
         </ul>
     </div>
 
     <script src="../vue/vue.js"></script>
     <script>
+        // 全局注册组件
+        // Vue.component('TodoItem', {
+        //     props: ['content'],
+        //     template: '<li>{{ content }}</li>'
+        // })
+
+        let TodoItem = {
+            props: ['content'],
+            template: '<li>{{ content }}</li>'
+        }
+
         let app = new Vue({
             el: '#app',  // 设置实例控制的页面范围
+            components: {  // 局部注册组件
+                TodoItem: TodoItem,
+            },
             data: {
                 list: [],
                 inputValue: '',
