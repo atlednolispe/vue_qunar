@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+</head>
+<body>
+    <div id="app">
+        {{ content }}
+    </div>
+
+    <script src="../vue/vue.js"></script>
+    <script>
+        let app = new Vue({
+            el: '#app',  // 设置实例控制的页面范围
+            data: {
+                content: 'hello world'
+            },
+        })
+
+        setTimeout(function () {
+            app.content = 'hello 2s'  // app.content === app.$data.content
+        }, 2000)
+    </script>
+</body>
+</html>
