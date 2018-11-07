@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域slot</title>
+</head>
+<body>
+<div id="app">
+    <child>
+        <!--作用域插槽必须template包围,且声明从子组件接收的数据,再根据父组件slot来渲染-->
+        <template slot-scope="props">
+            <!--暂理解为根据子组件传出的内容定制slot的内容,有点晕晕的-->
+            <h1>{{ props.pattr }}</h1>
+        </template>
+    </child>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    Vue.component('child', {
+        data: function() {
+            return {
+                list: [1, 2, 3, 4],
+            }
+        },
+        template: `
+        <div>
+            <ul>
+                <slot v-for="item of list" :pattr="item"></slot>
+            </ul>
+        </div>
+        `
+    })
+
+    let app = new Vue({
+        el: '#app',
+    })
+</script>
+</body>
+</html>
