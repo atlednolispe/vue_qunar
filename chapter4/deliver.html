@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>非父子组件传值</title>
+</head>
+<body>
+    <div id="app">
+        <child content="Nike"></child>
+        <child content="Ma"></child>
+    </div>
+
+    <script src="../vue/vue.js"></script>
+    <script>
+        const log = console.log.bind(console)
+
+        Vue.prototype.bus = new Vue()
+
+        Vue.component('child', {
+            props: ['content'],
+            data: function() {
+                return {
+                    childContent: this.content
+                }
+            },
+            template: '<div @click="handleClick">{{ childContent }}</div>',
+            methods: {
+                handleClick: function () {
+                    this.bus.$emit('change', this.childContent)
+                }
+            },
+            mounted: function () {
+                let self = this
+                this.bus.$on('change', function (c) {  // $on监听自身$emit的事件
+                    self.childContent = c
+                })
+            }
+        })
+
+        let app = new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+</html>
