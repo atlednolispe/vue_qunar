@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多个元素或者组件的过渡</title>
+    <style>
+        .fade-enter {
+            opacity: 0;
+        }
+        .fade-enter-active {
+            transition: opacity 0.3s;  /* 监听opacity变化 */
+        }
+        .fade-leave-to {
+            opacity: 0;
+        }
+        .fade-leave-active {
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--多个元素间的过渡效果-->
+    <!--由于dom复用没有渐变效果,需要设置key, mode in-out:需要进入的元素先显示再移除的元素 out-in-->
+    <transition name="fade" mode="in-out">
+        <div v-if="show" key="hello">Hello World</div>
+        <div v-else>Bye World</div>
+    </transition>
+
+    <!--多个组件间的过渡效果-->
+    <transition name="fade" mode="in-out">
+        <one v-if="show"></one>
+        <two v-else></two>
+    </transition>
+
+    <transition name="fade" mode="in-out">
+        <component :is="show === true ? 'one' : 'two'"></component>
+    </transition>
+    <button @click="handleClick">toggle</button>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    Vue.component('one', {
+        template: '<div>one</div>'
+    })
+
+    Vue.component('two', {
+        template: '<div>two</div>'
+    })
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            show: true,
+        },
+        methods: {
+            handleClick: function () {
+                this.show = !this.show
+            }
+        }
+    })
+</script>
+</body>
+</html>
