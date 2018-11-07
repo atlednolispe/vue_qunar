@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>animate.css使用</title>
+    <link rel="stylesheet" href="../vue/animate.css">
+    <style>
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .fade-enter-active {
+            transform-origin: left center;  /* 不添加显示会有问题 */
+            animation: bounce-in 1s;
+        }
+        .fade-leave-active {
+            transform-origin: left center;
+            animation: bounce-in 1s reverse;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--<transition name="fade">-->
+        <!--<div v-if="show">Hello World</div>-->
+    <!--</transition>-->
+
+    <!--使用自定义class名-->
+    <!--<transition-->
+            <!--name="fade"-->
+            <!--enter-active-class="active">-->
+        <!--<div v-if="show">Hello World</div>-->
+    <!--</transition>-->
+
+    <transition
+    name="fade"
+    enter-active-class="animated swing"
+    leave-active-class="animated shake">
+        <div v-if="show">Hello World</div>
+    </transition>
+    <button @click="handleClick">toggle</button>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            show: true,
+        },
+        methods: {
+            handleClick: function () {
+                this.show = !this.show
+            }
+        }
+    })
+</script>
+</body>
+</html>
