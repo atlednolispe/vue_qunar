@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性,方法,监听</title>
+</head>
+<body>
+<div id="app">
+    {{ cFullname }}
+    {{ mFullname() }}
+    {{ wFullname }}
+    {{ age }}
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            firstname: 'Nike',
+            lastname: 'Ma',
+            wFullname: 'Nike Ma',
+            age: 12,  // age改变computed不变,methods改变
+        },
+        computed: {
+            cFullname: function () {
+                // 依赖值不改变就使用缓存
+                let fullname = `${this.firstname} ${this.lastname}`
+                log('fullname computed', fullname)
+                return fullname
+            }
+        },
+        methods: {
+            mFullname: function () {
+                // 页面重新渲染就执行,并且需要()调用
+                let fullname = `${this.firstname} ${this.lastname}`
+                log('fullname method', fullname)
+                return fullname
+            }
+        },
+        watch: {
+            // 也有缓存效果
+            firstname: function () {
+                log('watch firstname', this.wFullname)
+                this.wFullname = this.firstname + ' ' + this.lastname
+            },
+            lastname: function () {
+                log('watch lastname', this.wFullname)
+                this.wFullname = this.firstname + ' ' + this.lastname
+            }
+        }
+    })
+</script>
+</body>
+</html>
