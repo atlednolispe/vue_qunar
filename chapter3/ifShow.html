@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>条件渲染</title>
+</head>
+<body>
+<div id="app">
+    <!--页面中元素不存在-->
+    <div v-if="show">if</div>
+    <!--display-->
+    <div v-show="show">show</div>
+    <div v-if="type === 'a'">aaa</div>
+    <!--v-else-if,且需要与v-if相邻-->
+    <div v-else-if="type === 'b'">bbb</div>
+    <div v-else>ccc</div>
+
+    <!--虚拟dom尽量复用元素,设置key部分防止复用-->
+    <!--再次切换回来是没有缓存的-->
+    <div v-if="phone">phone: <input key="phone"></div>
+    <div v-else>email: <input key="email"></div>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            show: false,
+            type: 'a',
+            phone: true,
+        },
+    })
+</script>
+</body>
+</html>
