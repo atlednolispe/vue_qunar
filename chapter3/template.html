@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+</head>
+<body>
+<div id="app">
+    <!--type1-->
+    {{ 'hello ' + name }}
+    <!--type2-->
+    <!--v-指令后面的内容是js表达式,不再是字符串-->
+    <!--v-text解释字符串,v-html解释字符串作为dom-->
+    <div v-text="'hello ' + name"></div>
+    <div v-html="e"></div>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            name: 'Nike',
+            e: '<h1>Nike</h1>'
+        },
+    })
+</script>
+</body>
+</html>
