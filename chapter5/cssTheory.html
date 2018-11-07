@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue动画原理</title>
+    <style>
+        .fade-enter {
+            opacity: 0;
+        }
+        .fade-enter-active {
+            transition: opacity 3s;  /* 监听opacity变化 */
+        }
+        .fade-leave-to {
+            opacity: 0;
+        }
+        .fade-leave-active {
+            transition: opacity 3s;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--type1: 隐藏到显示-->
+    <!--1: + fade-enter + fade-enter-active, 2: - fade-enter + fade-enter-to 3:(end) - fade-enter-active - fade-enter-to-->
+    <!--transition 不添加name属性默认class为v-xxx-->
+
+    <!--type1: 显示到隐藏-->
+    <!--1: + fade-leave + fade-leave-active, 2: - fade-leave + fade-leave-to 3:(end) - fade-leave-active - fade-leave-to-->
+
+    <!--v-if / v-show / component 都可以-->
+    <transition name="fade">
+        <div v-if="show">Hello World</div>
+    </transition>
+    <button @click="handleClick">toggle</button>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            show: true,
+        },
+        methods: {
+            handleClick: function () {
+                this.show = !this.show
+            }
+        }
+    })
+</script>
+</body>
+</html>
