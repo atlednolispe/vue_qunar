@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件参数校验和非props特性</title>
+</head>
+<body>
+<div id="app">
+    <child content="hel"></child>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    Vue.component('child', {
+        props: {
+            // content: Number,  // [Number, String]
+            content: {
+                type: String,
+                // required: true,
+                default: 'default value',
+                validator: function (value) {
+                    return value.length > 5
+                }
+            }
+        },
+        // 非props特性会作为属性展示在子组件最外层元素中,且在子组件中不能使用
+        template: '<div>{{ content }}</div>'
+    })
+
+    let app = new Vue({
+        el: '#app',
+    })
+</script>
+</body>
+</html>
