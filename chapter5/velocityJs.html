@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS动画</title>
+</head>
+<body>
+<div id="app">
+    <!--before-enter, enter, after-enter / before-leave, leave, after-leave-->
+    <transition
+            name="fade"
+            @before-enter="handleBeforeEnter"
+            @enter="handleEnter"
+            @after-enter="handleAfterEnter">
+        <div v-if="show">Hello World</div>
+    </transition>
+    <button @click="handleClick">toggle</button>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script src="../vue/velocity.min.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            show: true,
+        },
+        methods: {
+            handleClick: function () {
+                this.show = !this.show
+            },
+            handleBeforeEnter: function (e) {  // 可以接收到transition中的div元素
+                // log('beforeEnter')
+
+                e.style.opacity = 0
+            },
+            handleEnter: function (e, done) {
+                // setTimeout(() => {
+                //     e.style.color = 'green'
+                // }, 2000)
+                // setTimeout(() => {
+                //     done()  // 执行done后触发@after-enter
+                // }, 4000)
+
+                Velocity(
+                    e,
+                    {opacity: 1},
+                    {duration: 1000, complete: done}  // 动画执行完后complete中的回调函数会执行
+                )
+            },
+            handleAfterEnter: function (e) {
+                // e.style.color = 'black'
+                console.log('after enter')
+            }
+        }
+    })
+</script>
+</body>
+</html>
