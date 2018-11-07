@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件绑定原生事件</title>
+</head>
+<body>
+<div id="app">
+    <!--父组件中绑定的事件click视为自定义事件而不是原生事件-->
+    <child @click="handleClick"></child>
+
+    <!--组件绑定原生事件-->
+    <child @click.native="handleClick"></child>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    Vue.component('child', {
+        template: '<div @click="handleClick">Child</div>',
+        methods: {
+            handleClick: function () {
+                log('component click')
+            }
+        }
+    })
+
+    let app = new Vue({
+        el: '#app',
+        methods: {
+            handleClick: function () {
+                log('parent click')
+            }
+        }
+    })
+</script>
+</body>
+</html>
