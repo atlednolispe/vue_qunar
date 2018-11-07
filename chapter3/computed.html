@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算属性get, set</title>
+</head>
+<body>
+<div id="app">
+    {{ cFullname }}
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            firstname: 'Nike',
+            lastname: 'Ma',
+        },
+        computed: {
+            cFullname: {
+                get: function () {
+                    // 依赖值不改变就使用缓存
+                    let fullname = `${this.firstname} ${this.lastname}`
+                    log('fullname get computed', fullname)
+                    return fullname
+                },
+                set: function (value) {
+                    // app.cFullname = "Nike Ma"
+                    log('set get value:', value)
+                    let fl = value.split(' ')
+                    this.firstname = fl[0]
+                    this.lastname = fl[1]
+                }
+            }
+
+        },
+
+    })
+</script>
+</body>
+</html>
