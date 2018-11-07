@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父子组件传值</title>
+</head>
+<body>
+<div id="app">
+    <!--父组件向子组件传值-->
+    <!--<counter count="2"></counter>  &lt;!&ndash;字符串&ndash;&gt;-->
+    <!--app中的data改变会影响子组件的count,子组件count改变不影响父组件data,单项数据流:子组件不能修改父组件的数据-->
+    <counter :count="s1" @change="handleChange"></counter>  <!--数字,因为执行的是js表达式-->
+    <counter :count="s2" @change="handleChange"></counter>  <!--handleChange是不会默认传递事件的,写死参数就会忽略$emit传递的参数-->
+    <div>{{ sum }}</div>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    let counter = {
+        props: ['count'],
+        data: function() {
+          return {
+              number: this.count,  // 只在传递时返回一次,之后修改父组件data不会影响子组件的number, 但count会改变
+          }
+        },
+        template: '<div @click="handleClick(count)">{{ number }}</div>',  // @click="handleClick" = @click="handleClick(event)"
+        methods: {
+            handleClick: function (step) {
+                this.number += step
+                this.$emit('change', step)  // 子组件向父组件传递内容, $emit
+            }
+        }
+    }
+
+    let app = new Vue({
+        el: '#app',  // 设置实例控制的页面范围
+        data: {
+            s1: 2,
+            s2: 3,
+            sum: 5,
+        },
+        components: {
+            counter: counter,
+        },
+        methods: {
+            handleChange: function (step) {
+                this.sum += step
+            }
+        }
+    })
+</script>
+</body>
+</html>
