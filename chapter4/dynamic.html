@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动态组件和v-once</title>
+</head>
+<body>
+<div id="app">
+    <!--根据is的值显示不同的组件,组件会销毁后重新生成 v-once会放置到内存提高性能-->
+    <component :is="type"></component>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    Vue.component('one', {
+        template: '<div>one</div>'
+    })
+
+    Vue.component('two', {
+        template: '<div v-once>two</div>'
+    })
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            type: 'one'
+        }
+    })
+</script>
+</body>
+</html>
