@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表渲染</title>
+</head>
+<body>
+<div id="app">
+    <!--建议不要使用 index 作为唯一的 key ,且要使用 :key 而不是 key ,建议尽可能在使用 v-for 时提供 key-->
+    <div v-for="(item, index) of list" :key="item.id">{{ item.language }} [{{ index }}]</div>
+    <!--<template></template> 可以用来包裹多个 dom ,而外层没有多余的 <div> -->
+
+    <!--<div v-for="(value, key, index) in object">-->
+    <!--直接往obj添加k,v不会重新渲染,需要重新赋值-->
+    <!--Vue.set(app.obj, 'newKey', 'newValue') === app.$set-->
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            // 数组更新检测
+            // Vue.set(list, index, value)
+            list: [
+                {
+                    id: '0001',
+                    language: 'python',
+                },
+                {
+                    id: '0002',
+                    language: 'javascript',
+                },
+                {
+                    id: '0003',
+                    language: '...',
+                },
+            ]
+        },
+    })
+</script>
+</body>
+</html>
