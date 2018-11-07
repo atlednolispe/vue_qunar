@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>style绑定</title>
+    <style>
+        .activated {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--class中显示obj中v为true的k, k和自身的data中的值无关-->
+    <div :class="{activated: isActivated}" @click="handleClick">Hello World</div>
+    <!--class中显示数组中变量的值-->
+    <div :class="[activated]" @click="handleClick1">Hello Python</div>
+    <div :style="style" @click="handleClick2">Hello Javascript</div>
+    <div :style="[style, style1]" @click="handleClick3">Hello HTML</div>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            isActivated: false,
+            activated: '',
+            style: {
+                color: 'black',
+            },
+            style1: {
+                // css font-size要写驼峰
+                fontSize: '20px'
+            },
+        },
+        methods: {
+            handleClick: function () {
+                this.isActivated = !this.isActivated
+            },
+            handleClick1: function () {
+                this.activated = this.activated === '' ? 'activated' : ''
+            },
+            handleClick2: function () {
+                this.style.color = this.style.color === 'black' ? 'green' : 'black'
+            },
+            handleClick3: function () {
+                this.style1.fontSize = this.style1.fontSize === '20px' ? '30px' : '20px'
+            }
+        }
+    })
+</script>
+</body>
+</html>
