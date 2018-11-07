@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue动画封装</title>
+</head>
+<body>
+<div id="app">
+    <fade :show="show">
+        <div>Hello World</div>
+    </fade>
+    <button @click="handleClick">toggle</button>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script src="../vue/velocity.min.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    Vue.component('fade', {
+        props: ['show'],
+        template: `
+        <transition
+            name="fade"
+            @before-enter="handleBeforeEnter"
+            @enter="handleEnter"
+            @after-enter="handleAfterEnter">
+            <slot v-if="show"></slot>
+        </transition>
+        `,
+        methods: {
+            handleBeforeEnter: function (e) {  // 可以接收到transition中的div元素
+                e.style.opacity = 0
+            },
+            handleEnter: function (e, done) {
+                Velocity(
+                    e,
+                    {opacity: 1},
+                    {duration: 1000, complete: done}  // 动画执行完后complete中的回调函数会执行
+                )
+            },
+            handleAfterEnter: function (e) {
+                console.log('after enter')
+            }
+        }
+    })
+
+    let app = new Vue({
+        el: '#app',
+        data: {
+            show: true,
+        },
+        methods: {
+            handleClick: function () {
+                this.show = !this.show
+            },
+        }
+    })
+</script>
+</body>
+</html>
