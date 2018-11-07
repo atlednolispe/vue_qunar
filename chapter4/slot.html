@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slot</title>
+</head>
+<body>
+<div id="app">
+    <child1 content="<p>Hello</p>"></child1>
+
+    <!-- child -->
+    <child>
+        <h1>Nike</h1>
+    </child>
+
+    <!-- name-child -->
+    <name-child>
+        <div slot="header">header</div>
+        <div slot="footer">footer</div>
+    </name-child>
+</div>
+
+<script src="../vue/vue.js"></script>
+<script>
+    const log = console.log.bind(console)
+
+    Vue.component('child1', {
+        props: ['content'],
+        template: `
+        <div>
+            <p>hello</p>
+            <div v-html="content"></div>  <!--// dom元素会导致外层多一个div-->
+            <template v-html="content"></template>  <!--// dom无法渲染-->
+        </div>
+        `
+    })
+
+    Vue.component('child', {
+        // 如果有多个slot会将父组件的内容插入多次
+        // <slot></slot>
+        template: `
+        <div>
+            <p>Hello</p>
+            <slot>default</slot>
+        </div>
+        `
+    })
+
+    Vue.component('name-child', {
+        template: `
+        <div>
+            <p>Hello</p>
+            <slot name="header">default header</slot>
+            <slot name="footer"></slot>
+        </div>
+        `
+    })
+
+    let app = new Vue({
+        el: '#app',
+    })
+</script>
+</body>
+</html>
