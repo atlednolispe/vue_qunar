@@ -1,8 +1,7 @@
 <!--template下只能有一个根元素-->
 <template>
   <div>
-    <div class="home">Home</div>
-    <router-link to="/list">List</router-link>
+    Hello World
   </div>
 </template>
 
@@ -13,7 +12,4 @@ export default {
 </script>
 
 <style>
-  .home {
-    font-size: 50px;
-  }
 </style>
