@@ -56,7 +56,6 @@ export default {
   .title
     line-height: .8rem
     background: #eee
-    margin-top: .1rem
     text-indent: .2rem
   .item-img-wrapper
     overflow: hidden
