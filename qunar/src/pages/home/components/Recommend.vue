@@ -2,7 +2,7 @@
   <div>
     <div class="title">热销推荐</div>
     <ul>
-      <li class="item border-bottom" v-for="item of recommendList" :key="item.id">
+      <li class="item border-bottom" v-for="item of list" :key="item.id">
         <img class="item-img" :src="item.imgUrl">
         <div class="item-info">
           <p class="item-title">{{ item.title }}</p>
@@ -17,34 +17,9 @@
 <script>
 export default {
   name: 'HomeRecommend',
-  data () {
-    return {
-      recommendList: [
-        {
-          id: '0001',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/1702/86/86bc4db81a8b229da3.water.jpg_200x200_30a5026d.jpg',
-          title: '良渚文化村白鹭泉汤池',
-          desc: '风景宜人'
-        },
-        {
-          id: '0002',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/1702/86/86bc4db81a8b229da3.water.jpg_200x200_30a5026d.jpg',
-          title: '良渚文化村白鹭泉汤池',
-          desc: '风景宜人'
-        },
-        {
-          id: '0003',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/1702/86/86bc4db81a8b229da3.water.jpg_200x200_30a5026d.jpg',
-          title: '良渚文化村白鹭泉汤池',
-          desc: '风景宜人'
-        },
-        {
-          id: '0004',
-          imgUrl: 'http://img1.qunarzz.com/sight/p0/1702/86/86bc4db81a8b229da3.water.jpg_200x200_30a5026d.jpg',
-          title: '良渚文化村白鹭泉汤池',
-          desc: '风景宜人'
-        }
-      ]
+  props: {
+    list: {
+      type: Array
     }
   }
 }
