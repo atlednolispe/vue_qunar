@@ -5,7 +5,10 @@
       <input v-model="keyword" class="search-input" type="text" placeholder="输入城市名或者拼音">
       <div class="search-content" v-show="keyword">
         <ul>
-          <li v-for="item of list" :key="item.id" class="search-item border-bottom">
+          <li v-for="item of list"
+              :key="item.id"
+              class="search-item border-bottom"
+              @click="handleCityClick(item.name)">
             {{ item.name }}
           </li>
           <li class="search-item border-bottom" v-show="hasNoData">
@@ -37,9 +40,14 @@ export default {
       return !this.list.length
     }
   },
+  methods: {
+    handleCityClick (city) {
+      this.$store.dispatch('changeCity', city)
+      this.$router.push('/')
+    }
+  },
   watch: {
     keyword () {
-      console.log('keyword', this.keyword)
       if (this.timer) {
         clearTimeout(this.timer)
       }

@@ -10,8 +10,8 @@
     </div>
     <router-link to="/city">
       <div class="header-right">
-        {{ city }}
         <span class="iconfont arrow-icon">&#xe64a;</span>
+        {{ this.$store.state.city }}
       </div>
     </router-link>
   </div>
@@ -19,12 +19,7 @@
 
 <script>
 export default {
-  name: 'HomeHeader',
-  props: {
-    city: {
-      type: String
-    }
-  }
+  name: 'HomeHeader'
 }
 </script>
 
@@ -33,6 +28,7 @@ export default {
 <!--(reset.css) 1rem = html font-size = 50px-->
 <style lang="stylus" scoped>
   @import "~styles/variables.styl"
+  @import "~styles/mixins.styl"
   .header
     display: flex
     line-height: $headerHeight
@@ -60,6 +56,7 @@ export default {
       float: right
       text-align: center
       color: #fff
+      ellipsis()
       .arrow-icon
         font-size: .24rem
         padding-left: -.04rem
